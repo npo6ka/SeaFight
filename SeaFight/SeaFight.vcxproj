@@ -76,17 +76,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameBoard.cpp" />
+    <ClCompile Include="GameBoardCell.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="log.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyForm.cpp" />
-    <ClCompile Include="sec.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="GameBoardCell.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="sec.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Ship.h" />
+    <ClInclude Include="Visitor.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
