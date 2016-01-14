@@ -15,6 +15,7 @@ namespace SeaFight {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+    using namespace System::Threading;
 
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -43,6 +44,10 @@ namespace SeaFight {
     private: bool CheckNick(String^);
     private: bool WriteInConf(String^, String^);
     protected: array<array<Button^>^>^ buttonMas;
+    public: Barrier^ barin;
+    public: Barrier^ barout;
+    public: String^ strin;
+    public: Barrier^ strout;
 
     private: void InitializeChangeManu(void);
     private: void DisableMainManu(void);
@@ -238,6 +243,9 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
         System::Void button_Exit(System::Object^  sender, System::EventArgs^  e) {    
             this->textBox1->Text = L"button_Exit";
             Application::Exit();
+        }
+        System::Void serverPVC(Object^ obj) {
+
         }
         System::Void button_NET_PvC(System::Object^  sender, System::EventArgs^  e) {    
             this->textBox1->Text = L"button_NET_PvC";
