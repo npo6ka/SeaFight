@@ -71,6 +71,7 @@ bool PlayerUser::setShip(const int x, const int y, const Direction dir, const in
 bool PlayerUser::delShip(const int x, const int y) {
     return getMyBoard()->delShip(x, y);
 }
+//********************************************************************************************************
 bool PlayerUser::setShips(shared_ptr<Visitor> vis) {
     //static HandlerCmd hnd(vis);
     int stat = 0;

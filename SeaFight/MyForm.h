@@ -1,5 +1,5 @@
 #pragma once
-
+#include "threads.h"
 
 #define HEIGHT 600
 #define WIDTH 800
@@ -44,24 +44,27 @@ namespace SeaFight {
     private: bool CheckNick(String^);
     private: bool WriteInConf(String^, String^);
     protected: array<array<Button^>^>^ buttonMas;
-    public: Barrier^ barin;
-    public: Barrier^ barout;
-    public: String^ strin;
-    public: Barrier^ strout;
+    Void threadSenderClient(System::Object^);
+    public: array<Exch *>^ ex;
+    public: array<Barrier^>^ barr;
+    public: array<String^>^ str;
 
     private: void InitializeChangeManu(void);
-    private: void DisableMainManu(void);
-    private: void EnableMainManu(void);
+    private: void InitializePlacementMenu(void);
+    private: void EnabledMainManu(bool);
     private: void HideMainManu(void);
     private: void ShowMainManu(void);
+    private: void EnabledPlacMod(bool);
 
     private: System::Windows::Forms::Button^  button1;
     private: System::Windows::Forms::Button^  button2;
     private: System::Windows::Forms::Button^  button3;
     private: System::Windows::Forms::Button^  button4;
     private: System::Windows::Forms::Button^  button5;
-    private: System::Windows::Forms::Button^  button6;    
+    private: System::Windows::Forms::Button^  button6;
     private: System::Windows::Forms::Button^  button7;
+    private: System::Windows::Forms::Button^  button8;
+    private: System::Windows::Forms::Button^  button9;
     private: System::Windows::Forms::Label^  label1;
     private: System::Windows::Forms::Label^  label2;
     private: System::Windows::Forms::Label^  label3;
@@ -79,6 +82,7 @@ namespace SeaFight {
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
 		{
+            outlog("th: MyForm: start initialialize Component maim menu\n");
             this->button1 = (gcnew System::Windows::Forms::Button());
             this->button2 = (gcnew System::Windows::Forms::Button());
             this->button3 = (gcnew System::Windows::Forms::Button());
@@ -118,7 +122,7 @@ namespace SeaFight {
             this->button3->TabIndex = 2;
             this->button3->Text = L"Net PvP";
             this->button3->UseVisualStyleBackColor = true;
-            this->button3->Click += gcnew System::EventHandler(this, &MyForm::button_NET_PvC);
+            this->button3->Click += gcnew System::EventHandler(this, &MyForm::button_NET_PvP);
             // 
             // button4
             // 
@@ -181,6 +185,7 @@ namespace SeaFight {
             // MyForm
             // 
             InitializeChangeManu();
+            InitializePlacementMenu();
 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -201,70 +206,67 @@ namespace SeaFight {
             this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
             this->ResumeLayout(false);
             this->PerformLayout();
-
+            outlog("th: MyForm: initialialize Component maim menu completed\n");
         }
 #pragma endregion
-private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {}
-        System::Void button_PvC(System::Object^  sender, System::EventArgs^  e) {
-            HideMainManu();
-            this->buttonMas = gcnew array<array<Button^>^>(10);
-			 for (int i = 0; i < 10; ++i) {
-				 this->buttonMas[i] = gcnew array<Button^>(10);
-				 for (int j = 0; j < 10; ++j) {
-					 this->buttonMas[i][j] = gcnew Button();
-					 this->buttonMas[i][j]->Size = Drawing::Size(48, 48);
-					 this->buttonMas[i][j]->Text = i.ToString() + j.ToString();
-					 this->buttonMas[i][j]->Location = System::Drawing::Point(150 + 48 * j, 40 + 48 * i);
-					 Controls->Add(this->buttonMas[i][j]);
-                     this->buttonMas[i][j]->Tag = Point(i, j);
-					 this->buttonMas[i][j]->Click += gcnew System::EventHandler(this, &MyForm::buttonMas_Click);
-                     this->buttonMas[i][j]->MouseHover += gcnew System::EventHandler(this, &MyForm::buttonMas_Hover);
-                     this->buttonMas[i][j]->Enabled = true;
-				 }
-			 }
-        }
+        private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {}
+        private: System::Void button_PvC(System::Object^  sender, System::EventArgs^  e) {
+                outlog("th: MyForm: User click on button PvC\n");
+                HideMainManu();
+                EnabledPlacMod(true);
+                Thread^ trd1 = gcnew Thread(gcnew ParameterizedThreadStart(&threadServer));
+                trd1->Start(this);
+                Thread^ trd2 = gcnew Thread(gcnew ParameterizedThreadStart(this, &MyForm::threadSenderClient));
+                trd2->Start(this);
+            }
         private: System::Void buttonMas_Hover(System::Object^  sender, System::EventArgs^  e) {
+                 outlog("th: MyForm: mouse hover above button when placement of ships\n");
 				 Button^ b = safe_cast<Button^>(sender);
                  b->Tag->GetType();
 				 Console::WriteLine(Convert::ToString(b->Tag));
                  Point p = safe_cast<Point>(b->Tag);
 				 this->buttonMas[p.X][p.Y]->Text = "lalitka";
 			 }
-       private: System::Void buttonMas_Click(System::Object^  sender, System::EventArgs^  e) {
+        private: System::Void buttonMas_Click(System::Object^  sender, System::EventArgs^  e) {
+                 outlog("th: MyForm: User click on button when placement of ships\n");
 				 Button^ b = safe_cast<Button^>(sender);
                  b->Tag->GetType();
 				 Console::WriteLine(Convert::ToString(b->Tag));
                  Point p = safe_cast<Point>(b->Tag);
 				 this->buttonMas[p.X][p.Y]->Text = "Click";
-			 }
-        System::Void button_PvP(System::Object^  sender, System::EventArgs^  e) {       
+			}
+
+        System::Void button_PvP(System::Object^  sender, System::EventArgs^  e) {
+            outlog("th: MyForm: User click on button PvP\n");
             this->textBox1->Text = L"button_PvP";
         }
-        System::Void button_Exit(System::Object^  sender, System::EventArgs^  e) {    
+        System::Void button_Exit(System::Object^  sender, System::EventArgs^  e) {
+            outlog("th: MyForm: User click on button Exit\n");
             this->textBox1->Text = L"button_Exit";
             Application::Exit();
         }
-        System::Void serverPVC(Object^ obj) {
-
-        }
-        System::Void button_NET_PvC(System::Object^  sender, System::EventArgs^  e) {    
+        System::Void button_NET_PvP(System::Object^  sender, System::EventArgs^  e) {
+            outlog("th: MyForm: User click on button network PvP\n");
             this->textBox1->Text = L"button_NET_PvC";
         }
         System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
         }
-        System::Void button_changeNick(System::Object^  sender, System::EventArgs^  e) {    
+        System::Void button_changeNick(System::Object^  sender, System::EventArgs^  e) {
+            outlog("th: MyForm: User click on button chenge nickname\n");
             this->textBox1->Text = L"changeNick";
             panel1->Enabled = true;
             panel1->Show();
-            DisableMainManu();
+            EnabledMainManu(false);
         }
         System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+            outlog("th: MyForm: User click on button cancel in a state of chenge nickname\n");
             this->textBox1->Text = L"Menu";
-            EnableMainManu();
+            EnabledMainManu(true);
             this->panel1->Enabled = false;
             this->panel1->Hide();
         }
         System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
+            outlog("th: MyForm: User click on button apply in a state of chenge nickname\n");
             this->textBox1->Text = L"change";
             if (CheckNick(this->textBox2->Text)) {
                 this->label2->Text = gcnew String(this->textBox2->Text);
@@ -272,10 +274,22 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
                 this->label3->Hide();
                 this->panel1->Enabled = false;
                 this->panel1->Hide();
-                EnableMainManu();
+                EnabledMainManu(true);
+                outlog("th: MyForm: successful change nickname\n");
             } else {
+                outlog("th: MyForm: failed change nickname\n");
                 this->label3->Show();
             }    
+        }
+        System::Void button_CanselPlac(System::Object^  sender, System::EventArgs^  e) {
+            outlog("th: MyForm: User click on button CanselPlac\n");
+            this->textBox1->Text = L"button_CanselPlac";
+            EnabledPlacMod(false);
+
+            this->str[0] = "ex";
+            this->barr[0]->SignalAndWait();
+            outlog("th: MyForm: send msg \"ex\"\n");
+            ShowMainManu();
         }
     };
 }

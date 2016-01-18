@@ -14,6 +14,10 @@ public:
         return &log;
     }
     void printlog(std::string);
+    void printlog(std::string, std::string);
+    void printlog(std::string, std::string, std::string);
 };
 
 void outlog(std::string);
+void outlog(std::string, std::string);
+void outlog(std::string, std::string, std::string);

@@ -15,8 +15,8 @@ int main()
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::Run(gcnew MyForm);
-    Thread^ thr = gcnew Thread(gcnew ParameterizedThreadStart(&fun));
-    thr->Start(true);
+    /*Thread^ thr = gcnew Thread(gcnew ParameterizedThreadStart(&fun));
+    thr->Start(true);*/
 
 	return 0;
 }

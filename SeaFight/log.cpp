@@ -23,13 +23,30 @@ bool Log::changeFilename(std::string str) {
     } else return false;
 }
 
-void Log::printlog(std::string str) {
-    fout << str.data();
+void Log::printlog(std::string str1) {
+    fout << str1.data();
 }
 
-void outlog(std::string str) {
+void Log::printlog(std::string str1, std::string str2) {
+    fout << (str1 += str2).data();
+}
+
+void Log::printlog(std::string str1, std::string str2, std::string str3) {
+    fout << (str1 += str2 += str3).data();
+}
+
+void outlog(std::string str1) {
     static Log* log;
-    log->get()->printlog(str);
+    log->get()->printlog(str1);
+}
+
+void outlog(std::string str1, std::string str2) {
+    static Log* log;
+    log->get()->printlog(str1, str2);
+}
+void outlog(std::string str1, std::string str2, std::string str3) {
+    static Log* log;
+    log->get()->printlog(str1, str2, str3);
 }
 
 
