@@ -1,5 +1,6 @@
 #pragma once
 #include "threads.h"
+#include "MyForm1.h"
 
 #define HEIGHT 600
 #define WIDTH 800
@@ -212,13 +213,20 @@ namespace SeaFight {
         private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {}
         private: System::Void button_PvC(System::Object^  sender, System::EventArgs^  e) {
                 outlog("th: MyForm: User click on button PvC\n");
-                HideMainManu();
+                /*HideMainManu();
                 EnabledPlacMod(true);
                 Thread^ trd1 = gcnew Thread(gcnew ParameterizedThreadStart(&threadServer));
                 trd1->Start(this);
                 Thread^ trd2 = gcnew Thread(gcnew ParameterizedThreadStart(this, &MyForm::threadSenderClient));
-                trd2->Start(this);
+                trd2->Start(this);*/
+                
+                Thread^ thr = gcnew Thread(gcnew ParameterizedThreadStart(this, &MyForm::ThreadFunc));
+                thr->Start(true);
             }
+
+        System::Void ThreadFunc(System::Object^ obj) {
+	                 Application::Run(gcnew MyForm1);
+                 }
         private: System::Void buttonMas_Hover(System::Object^  sender, System::EventArgs^  e) {
                  outlog("th: MyForm: mouse hover above button when placement of ships\n");
 				 Button^ b = safe_cast<Button^>(sender);

@@ -7,13 +7,6 @@
 using namespace System;
 using namespace System::IO;
 
-struct Exch {
-    char com;
-    int x;
-    int y;
-    Direction dir;
-};
-
 bool strToInt(string str) {
     if (str.find_first_not_of
         ("0123456789") 
