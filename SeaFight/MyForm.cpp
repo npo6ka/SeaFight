@@ -184,9 +184,9 @@ namespace SeaFight
     void MyForm::EnabledMainManu(bool fl) {
         button1->Enabled = fl;
         button2->Enabled = fl;
-        button3->Enabled = fl;
+        //button3->Enabled = fl;
         button4->Enabled = fl;
-        //button5->Enabled = fl;
+        button5->Enabled = fl;
         textBox1->Enabled = fl;
     }
 

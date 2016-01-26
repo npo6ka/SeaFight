@@ -55,6 +55,7 @@ public:
     void clear(void);
     bool checkFullBoard(void) const;
     bool empty(void);
+    int getStatCell(int, int);
 
     bool generateShips(void);
     

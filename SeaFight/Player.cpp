@@ -61,6 +61,14 @@ bool Player::checkWin() {
     return getOpBoard()->checkFullBoard();
 }
 
+int Player::getStatMyCell(int x, int y) {
+    return getMyBoard()->getStatCell(x, y);
+}
+
+int Player::getStatOpCell(int x, int y) {
+    return getOpBoard()->getStatCell(x, y);
+}
+
 PlayerComp::PlayerComp(): Player() {
     changeNick(string ("Computer_" + to_string(++count)));
 }

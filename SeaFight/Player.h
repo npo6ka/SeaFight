@@ -21,6 +21,8 @@ public:
     void resetBoards(void);
     bool autoSetShips(void);
     bool checkBoard(void);
+    int getStatMyCell(int, int);
+    int getStatOpCell(int, int);
     std::string getNick(void);
     int getStatShot(const int, const int);
     int setStatShot(const int, const int, const int);

@@ -212,6 +212,7 @@ namespace SeaFight {
                 Thread^ trd2 = gcnew Thread(gcnew ParameterizedThreadStart(this, &MyForm::threadSenderClient));
                 trd2->Start(this);*/
                 MyForm1^ form1 = gcnew MyForm1;
+                form1->PvC();
                 this->Hide();
                 form1->ShowDialog();
                 this->Show();
@@ -220,6 +221,11 @@ namespace SeaFight {
             }
         System::Void button_PvP(System::Object^  sender, System::EventArgs^  e) {
             outlog("th: MyForm: User click on button PvP\n");
+            MyForm1^ form1 = gcnew MyForm1;
+            form1->PvP();
+            this->Hide();
+            form1->ShowDialog();
+            this->Show();
             this->textBox1->Text = L"button_PvP";
         }
         System::Void button_Exit(System::Object^  sender, System::EventArgs^  e) {

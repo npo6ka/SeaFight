@@ -341,3 +341,7 @@ int GameBoard::setStatShot(const int x, const int y, const int stat) {
         return 1;
     }
 }
+
+int GameBoard::getStatCell(int x, int y) {
+    return getCell(x, y)->getStat() + 2 * (int)!!(getCell(x, y)->getShip()); 
+}
