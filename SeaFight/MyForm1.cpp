@@ -1,6 +1,7 @@
 #include "MyForm1.h"
 //#include "Player.h"
 
+
 using namespace System;
 using namespace System::IO;
 
@@ -43,12 +44,12 @@ namespace SeaFight
 
     System::Void MyForm1::ThreadServer(System::Object^ obj) {
         outlog("th: server: start\n");
-        /*PlayerUser* user = new PlayerUser();
-        Player* comp = new PlayerComp();
+        //PlayerUser* user = new PlayerUser();
+        //Player* comp = new PlayerComp();
 
         //установка кораблей компьютером
-        comp->getMyBoard()->reset();
-        comp->getOpBoard()->reset();
+        //comp->getMyBoard()->reset();
+        //comp->getOpBoard()->reset();
         /*if (comp->autoSetShips()) {
             outlog("th: server: Error auto set ship");
             return;

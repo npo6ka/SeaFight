@@ -1,6 +1,7 @@
 #pragma once
 
 //#include "GameBoard.h"
+
 #include <string>
 
 class GameBoard;
@@ -13,8 +14,8 @@ class Player {
 public:
     GameBoard*  getMyBoard(void);
     GameBoard*  getOpBoard(void);
-    Player(void) {}
-    ~Player(void) {}
+    Player(void);
+    ~Player(void);
     int changeNick(const std::string);
     void clearBoards(void);
     void resetBoards(void);

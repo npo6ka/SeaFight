@@ -1,10 +1,21 @@
 #include "Player.h"
 #include "GameBoard.h"
+
 //#include "HandlerCmd.h"
 //#include "Visitor.h"
 
 int PlayerComp::count = 0;
 int PlayerUser::count = 0;
+
+    Player::Player() {
+        _myBoard = new GameBoard();
+        _opBoard = new GameBoard();
+    }
+
+    Player::~Player() {
+        delete _myBoard;
+        delete _opBoard;
+    }
 
 GameBoard* Player::getMyBoard() {
     return _myBoard;

@@ -1,6 +1,7 @@
 #pragma once
+//#include "player.h"
 #include "log.h"
-#include "player.h"
+
 
 namespace SeaFight {
 
