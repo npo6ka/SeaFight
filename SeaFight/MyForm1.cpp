@@ -1,5 +1,5 @@
 #include "MyForm1.h"
-//#include "Player.h"
+#include "Player.h"
 
 
 using namespace System;
@@ -44,21 +44,21 @@ namespace SeaFight
 
     System::Void MyForm1::ThreadServer(System::Object^ obj) {
         outlog("th: server: start\n");
-        //PlayerUser* user = new PlayerUser();
-        //Player* comp = new PlayerComp();
+        PlayerUser* user = new PlayerUser();
+        PlayerComp* comp = new PlayerComp();
 
         //установка кораблей компьютером
-        //comp->getMyBoard()->reset();
+        //user->getMyBoard()->reset();
         //comp->getOpBoard()->reset();
-        /*if (comp->autoSetShips()) {
+        if (!comp->autoSetShips()) {
             outlog("th: server: Error auto set ship");
             return;
-        }*/
+        }
 
         //установка кораблей игроком
-        /*user->getMyBoard()->reset();
-        user->getOpBoard()->reset();
-        bool i = user->setShip(5,5,HORIZONTAL, 1);*/
+        //user->getMyBoard()->reset();
+        //user->getOpBoard()->reset();
+        bool i = user->setShip(5,5,0, 1);
         /*while (this->bufCmd->com != 'r' || this->bufCmd->com != 'e') {
             this->bar->SignalAndWait();
             HandlerCmd(user);
