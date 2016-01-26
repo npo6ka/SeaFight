@@ -3,7 +3,7 @@
 #include "GameBoardCell.h"
 #include "Ship.h"
 
-#include <array>
+#include <vector>
 #include <algorithm>
 #include <time.h>
 
@@ -23,7 +23,7 @@ enum statShot{
 class GameBoard {
     static const int _shipCount[MAX_SIZE_SHIP];
     shared_ptr<GameBoardCell> _board[BOARD_SIZE][BOARD_SIZE];
-    array<list<shared_ptr<Ship>>, MAX_SIZE_SHIP> _masShip;
+    vector<list<shared_ptr<Ship>>> _masShip;
 
     void generate(void);
     shared_ptr<GameBoardCell> getCell(const int, const int) const;

@@ -115,7 +115,7 @@ SizeShip Ship1::getSize(void) const {
     return DECK1;
 }
 void Ship1::drawShip(shared_ptr<Visitor> vis, bool sh) {
-    vis->PrintShip1(shared_from_this(), sh);
+    //vis->PrintShip1(shared_from_this(), sh);
 }
 
 Ship2::Ship2 (): Ship() {}
@@ -133,7 +133,7 @@ SizeShip Ship2::getSize(void) const{
     return DECK2;
 }
 void Ship2::drawShip(shared_ptr<Visitor> vis, bool sh) {
-    vis->PrintShip2(shared_from_this(), sh);
+    //vis->PrintShip2(shared_from_this(), sh);
 }
 
 Ship3::Ship3 (): Ship() {}
@@ -151,7 +151,7 @@ SizeShip Ship3::getSize(void) const {
     return DECK3;
 }
 void Ship3::drawShip(shared_ptr<Visitor> vis, bool sh) {
-    vis->PrintShip3(shared_from_this(), sh);
+    //vis->PrintShip3(shared_from_this(), sh);
 }
 
 Ship4::Ship4 (): Ship() {}
@@ -169,6 +169,6 @@ SizeShip Ship4::getSize(void) const {
     return DECK4;
 }
 void Ship4::drawShip(shared_ptr<Visitor> vis, bool sh) {
-    vis->PrintShip4(shared_from_this(), sh);
+    //vis->PrintShip4(shared_from_this(), sh);
 }
 

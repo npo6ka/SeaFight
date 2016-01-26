@@ -1,11 +1,11 @@
 #pragma once
-#include "threads.h"
+//#include "threads.h"
 #include "MyForm1.h"
-
+/*
 #define HEIGHT 600
 #define WIDTH 800
 #define HEBUT 64
-#define WIBUT 192
+#define WIBUT 192*/
 
 
 namespace SeaFight {
@@ -16,7 +16,6 @@ namespace SeaFight {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-    using namespace System::Threading;
 
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -44,18 +43,12 @@ namespace SeaFight {
     private: String^ getNickFromConf();
     private: bool CheckNick(String^);
     private: bool WriteInConf(String^, String^);
-    protected: array<array<Button^>^>^ buttonMas;
     Void threadSenderClient(System::Object^);
-    public: array<Exch *>^ ex;
-    public: array<Barrier^>^ barr;
-    public: array<String^>^ str;
 
     private: void InitializeChangeManu(void);
-    private: void InitializePlacementMenu(void);
     private: void EnabledMainManu(bool);
     private: void HideMainManu(void);
     private: void ShowMainManu(void);
-    private: void EnabledPlacMod(bool);
 
     private: System::Windows::Forms::Button^  button1;
     private: System::Windows::Forms::Button^  button2;
@@ -64,8 +57,7 @@ namespace SeaFight {
     private: System::Windows::Forms::Button^  button5;
     private: System::Windows::Forms::Button^  button6;
     private: System::Windows::Forms::Button^  button7;
-    private: System::Windows::Forms::Button^  button8;
-    private: System::Windows::Forms::Button^  button9;
+
     private: System::Windows::Forms::Label^  label1;
     private: System::Windows::Forms::Label^  label2;
     private: System::Windows::Forms::Label^  label3;
@@ -124,6 +116,7 @@ namespace SeaFight {
             this->button3->Text = L"Net PvP";
             this->button3->UseVisualStyleBackColor = true;
             this->button3->Click += gcnew System::EventHandler(this, &MyForm::button_NET_PvP);
+            this->button3->Enabled = false;
             // 
             // button4
             // 
@@ -186,7 +179,6 @@ namespace SeaFight {
             // MyForm
             // 
             InitializeChangeManu();
-            InitializePlacementMenu();
 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -219,31 +211,13 @@ namespace SeaFight {
                 trd1->Start(this);
                 Thread^ trd2 = gcnew Thread(gcnew ParameterizedThreadStart(this, &MyForm::threadSenderClient));
                 trd2->Start(this);*/
-                
-                Thread^ thr = gcnew Thread(gcnew ParameterizedThreadStart(this, &MyForm::ThreadFunc));
-                thr->Start(true);
+                MyForm1^ form1 = gcnew MyForm1;
+                this->Hide();
+                form1->ShowDialog();
+                this->Show();
+                /*Thread^ thr = gcnew Thread(gcnew ParameterizedThreadStart(this, &MyForm::ThreadFunc));
+                thr->Start(true);*/
             }
-
-        System::Void ThreadFunc(System::Object^ obj) {
-	                 Application::Run(gcnew MyForm1);
-                 }
-        private: System::Void buttonMas_Hover(System::Object^  sender, System::EventArgs^  e) {
-                 outlog("th: MyForm: mouse hover above button when placement of ships\n");
-				 Button^ b = safe_cast<Button^>(sender);
-                 b->Tag->GetType();
-				 Console::WriteLine(Convert::ToString(b->Tag));
-                 Point p = safe_cast<Point>(b->Tag);
-				 this->buttonMas[p.X][p.Y]->Text = "lalitka";
-			 }
-        private: System::Void buttonMas_Click(System::Object^  sender, System::EventArgs^  e) {
-                 outlog("th: MyForm: User click on button when placement of ships\n");
-				 Button^ b = safe_cast<Button^>(sender);
-                 b->Tag->GetType();
-				 Console::WriteLine(Convert::ToString(b->Tag));
-                 Point p = safe_cast<Point>(b->Tag);
-				 this->buttonMas[p.X][p.Y]->Text = "Click";
-			}
-
         System::Void button_PvP(System::Object^  sender, System::EventArgs^  e) {
             outlog("th: MyForm: User click on button PvP\n");
             this->textBox1->Text = L"button_PvP";
@@ -288,16 +262,6 @@ namespace SeaFight {
                 outlog("th: MyForm: failed change nickname\n");
                 this->label3->Show();
             }    
-        }
-        System::Void button_CanselPlac(System::Object^  sender, System::EventArgs^  e) {
-            outlog("th: MyForm: User click on button CanselPlac\n");
-            this->textBox1->Text = L"button_CanselPlac";
-            EnabledPlacMod(false);
-
-            this->str[0] = "ex";
-            this->barr[0]->SignalAndWait();
-            outlog("th: MyForm: send msg \"ex\"\n");
-            ShowMainManu();
         }
     };
 }

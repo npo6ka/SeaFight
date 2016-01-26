@@ -6,8 +6,6 @@
 using namespace System;
 using namespace System::IO;
 
-#define SETFILE "setting.txt"
-
 namespace SeaFight 
 {
     String^ MyForm::getNickFromConf() 
@@ -180,99 +178,19 @@ namespace SeaFight
         this->panel1->Enabled = false;
         this->panel1->Hide();
 
-        this->barr = gcnew array<Barrier^>(3);
-        barr[0] = gcnew Barrier(2);
-        barr[1] = gcnew Barrier(2);
-        barr[2] = gcnew Barrier(2);
-        this->str = gcnew array<String^>(3);
-        str[0] = gcnew String("");
-        str[1] = gcnew String("");
-        str[2] = gcnew String("");
-        
-        this->ex = gcnew array<Exch*>(3);
-        this->ex[0] = new Exch();
         outlog("th: MyForm: initialialize Component chenge menu completed\n");
     }
-    void MyForm::InitializePlacementMenu() {
-        outlog("th: MyForm: start initialialize Component Placement mod\n");
-        this->buttonMas = gcnew array<array<Button^>^>(10);
-		for (int i = 0; i < 10; ++i) {
-            this->buttonMas[i] = gcnew array<Button^>(10);
-            for (int j = 0; j < 10; ++j) {
-                this->buttonMas[i][j] = gcnew Button();
-                this->buttonMas[i][j]->Size = Drawing::Size(48, 48);
-                this->buttonMas[i][j]->Text = i.ToString() + j.ToString();
-                this->buttonMas[i][j]->Location = System::Drawing::Point(150 + 48 * j, 40 + 48 * i);
-                Controls->Add(this->buttonMas[i][j]);
-                this->buttonMas[i][j]->Tag = Point(i, j);
-                this->buttonMas[i][j]->Click += gcnew System::EventHandler(this, &MyForm::buttonMas_Click);
-                this->buttonMas[i][j]->MouseHover += gcnew System::EventHandler(this, &MyForm::buttonMas_Hover);
-                this->buttonMas[i][j]->Enabled = true;
-		    }
-		}
-        this->button8 = (gcnew System::Windows::Forms::Button());
-        this->button9 = (gcnew System::Windows::Forms::Button());
-        // 
-        // button8
-        // 
-        this->button8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
-            static_cast<System::Byte>(204)));
-        this->button8->Location = System::Drawing::Point(25, 480);
-        this->button8->Name = L"button8";
-        this->button8->Size = System::Drawing::Size(106, 39);
-        this->button8->TabIndex = 8;
-        this->button8->Text = L"<< назад";
-        this->button8->UseVisualStyleBackColor = true;
-        this->button8->Click += gcnew System::EventHandler(this, &MyForm::button_CanselPlac);
-        // 
-        // button9
-        // 
-        this->button9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
-            static_cast<System::Byte>(204)));
-        this->button9->Location = System::Drawing::Point(650, 480);
-        this->button9->Name = L"button9";
-        this->button9->Size = System::Drawing::Size(106, 39);
-        this->button9->TabIndex = 15;
-        this->button9->Text = L"В бой >>";
-        this->button9->UseVisualStyleBackColor = true;
-        //this->button9->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
-
-        this->Controls->Add(this->button8);
-        this->Controls->Add(this->button9);
-        EnabledPlacMod(false);
-        outlog("th: MyForm: initialialize Component Placement mod completed\n");
-    }
-    void MyForm::EnabledPlacMod(bool fl) {
-        for (int i=0; i<10; i++)
-            for (int j=0; j<10; j++) 
-                this->buttonMas[i][j]->Enabled = fl;
-        this->button8->Enabled = fl;
-        this->button9->Enabled = fl;
-        if (fl) {
-            for (int i=0; i<10; i++)
-                for (int j=0; j<10; j++) 
-                    this->buttonMas[i][j]->Show();
-            this->button8->Show();
-            this->button9->Show();
-        } else {
-            for (int i=0; i<10; i++)
-                for (int j=0; j<10; j++) 
-                    this->buttonMas[i][j]->Hide();
-            this->button8->Hide();
-            this->button9->Hide();
-        }
-    }
-
 
     void MyForm::EnabledMainManu(bool fl) {
         button1->Enabled = fl;
         button2->Enabled = fl;
         button3->Enabled = fl;
         button4->Enabled = fl;
-        button5->Enabled = fl;
+        //button5->Enabled = fl;
         textBox1->Enabled = fl;
     }
 
+//???????????????????????????????
     void MyForm::HideMainManu() {
         panel1->Enabled = false;
         panel1->Hide();
@@ -286,6 +204,7 @@ namespace SeaFight
         button5->Hide();
         textBox1->Hide();
     }
+//???????????????????????????????
     void MyForm::ShowMainManu() {
         EnabledMainManu(true);
         label1->Show();
@@ -297,12 +216,13 @@ namespace SeaFight
         button5->Show();
         textBox1->Show();
     }
+//???????????????????????????????
     System::Void MyForm::threadSenderClient(System::Object^ obj) {
         outlog("**** Start thread: Sender Client ****\n");
         SeaFight::MyForm^ form = safe_cast<SeaFight::MyForm^>(obj);
         String^ str = "SenderClient";
         while (str != "ex") {
-            str = msgReceive("", 2, obj);
+            //str = msgReceive("", 2, obj);
         }
         outlog("**** End thread: Sender Client ****\n");
     }

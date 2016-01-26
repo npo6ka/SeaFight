@@ -12,7 +12,7 @@ GameBoardCell::GameBoardCell(const GameBoardCell &obj) {
 }
 
 void GameBoardCell::drawCell(shared_ptr<Visitor> vis, bool sh) {
-    vis->PrintCell(shared_from_this(), sh);
+    //vis->PrintCell(shared_from_this(), sh);
 }
 
 void GameBoardCell::setPos(const int x, const int y) {

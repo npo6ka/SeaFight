@@ -186,6 +186,7 @@ bool GameBoard::setFullShip(const int x, const int y, const Direction dir, const
             } else return false;
         }
     }
+    int i = mas.front()->getPosX();
     shared_ptr<Ship> buf = NewShip[size-1](mas);
     
     if (checkCellsAroundShip(buf)) {

@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "vector"
 
-class Visitor;
+/*class Visitor;
 
 class Game {
     list<shared_ptr<PlayerUser>> _users;
@@ -13,4 +13,4 @@ public:
     ~Game(void) {};
     bool start(shared_ptr<Visitor>);
 
-};
+};*/

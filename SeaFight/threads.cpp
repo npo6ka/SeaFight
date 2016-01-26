@@ -6,7 +6,7 @@
 #include <msclr\marshal_cppstd.h>
 using namespace System;
 using namespace System::IO;
-
+/*
 bool strToInt(string str) {
     if (str.find_first_not_of
         ("0123456789") 
@@ -97,4 +97,4 @@ String^ msgReceive(String^ threadName, int numThre, Object^ obj) {
     outlog(strin, msclr::interop::marshal_as<std::string>(str) ,"\"\n");
     return str;
 }
-
+*/
